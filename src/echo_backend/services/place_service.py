@@ -8,7 +8,7 @@ from echo_backend.schemas.place_schema import PlaceSchema
 load_dotenv()
 BASE_URL = "https://places.googleapis.com/v1/places:searchText"
 
-async def get_place_details(http_client: httpx.AsyncClient, text_query: str):
+async def get_place_details(http_client: httpx.AsyncClient, text_query: str, latitude: float, longitude: float):
     api_key = os.getenv("GOOGLE_PLACES_API_KEY")
     if not api_key:
         raise ValueError("GOOGLE_PLACES_API_KEY is not configured")
@@ -28,8 +28,8 @@ async def get_place_details(http_client: httpx.AsyncClient, text_query: str):
         "locationBias": {
             "circle": {
                 "center": {
-                    "latitude": 9.2454,
-                    "longitude": 76.6244
+                    "latitude": latitude,
+                    "longitude": longitude
                 },
                 "radius": 15000.0  
             }

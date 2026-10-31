@@ -11,9 +11,9 @@ router = APIRouter(
 )
 
 @router.post("/search")
-async def search_places(text_query:str,  request:Request) -> list[PlaceSchema]:
+async def search_places(text_query:str,  request:Request, latitude: float, longitude: float) -> list[PlaceSchema]:
     try:
-        return await get_place_details(request.app.state.http_client, text_query)
+        return await get_place_details(request.app.state.http_client, text_query, latitude, longitude)
     except Exception as e:
        raise HTTPException(
             status_code=500,

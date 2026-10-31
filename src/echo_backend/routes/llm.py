@@ -8,7 +8,7 @@ router = APIRouter(
 )
 
 @router.get("/response")
-async def llm_response(message:str):
+async def llm_response(message:str)-> dict:
     try:
         return await get_llm_response(message)
     except Exception as e:

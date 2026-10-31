@@ -6,7 +6,7 @@ from echo_backend.schemas.llm_service_datails_schema import ServiceDetailsSchema
 
 load_dotenv()
 
-async def get_llm_response(message: str) -> str:
+async def get_llm_response(message: str) -> dict:
     system_prompt = """
     You are a home service query detail extractor.
     Your task is to extract the following details from the user's message:

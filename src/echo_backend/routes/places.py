@@ -10,7 +10,7 @@ router = APIRouter(
     tags=["places"]
 )
 
-@router.post("/search")
+@router.get("/search")
 async def search_places(text_query:str,  request:Request, latitude: float, longitude: float) -> list[PlaceSchema]:
     try:
         return await get_place_details(request.app.state.http_client, text_query, latitude, longitude)

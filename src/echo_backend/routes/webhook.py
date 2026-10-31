@@ -1,22 +1,17 @@
-from fastapi import APIRouter, Request, Header, HTTPException
+from fastapi import APIRouter, Request, HTTPException
+from echo_backend.core.websocket import manager
 
 router = APIRouter(
     prefix="/webhook",
     tags=["webhooks"]
 )
 
-# WEBHOOK_SECRET = os.getenv("BOLNA_WEBHOOK_SECRET")
-
 
 @router.post("/")
 async def bolna_webhook(
     request: Request,
-    # x_bolna_webhook_secret: str | None = Header(default=None)
 ):
-    # Verify webhook authentication
-    # if not WEBHOOK_SECRET or x_bolna_webhook_secret != WEBHOOK_SECRET:
-    #     raise HTTPException(status_code=401, detail="Unauthorized")
-
+    
     payload = await request.json()
 
     execution_id = payload.get("id")
@@ -31,16 +26,14 @@ async def bolna_webhook(
     print(f"Execution: {execution_id}")
     print(f"Status: {status}")
 
-    # Update database
-    # await update_call_status(execution_id, status)
 
-    # Notify connected Flutter clients
-    # await manager.broadcast(
-    #     execution_id,
-    #     {
-    #         "execution_id": execution_id,
-    #         "status": status
-    #     }
-    # )
 
-    return status
+    await manager.broadcast(
+        execution_id,
+        {
+            "execution_id": execution_id,
+            "status": status
+        }
+    )
+
+    return {"message": "Webhook received successfully"}

@@ -29,12 +29,12 @@ async def bolna_webhook(
 
 
     await manager.broadcast(
-        execution_id,
         {
             "execution_id": execution_id,
             "status": status,
             "data": payload if status == "completed" else None
-        }
+        },
+        execution_id,
     )
 
     return {"message": "Webhook received successfully"}

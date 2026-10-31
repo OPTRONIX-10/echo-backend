@@ -1,6 +1,3 @@
-import os
-import json
-
 from fastapi import APIRouter, Request, Header, HTTPException
 
 router = APIRouter(
@@ -46,4 +43,4 @@ async def bolna_webhook(
     #     }
     # )
 
-    return {"success": True}
+    return status

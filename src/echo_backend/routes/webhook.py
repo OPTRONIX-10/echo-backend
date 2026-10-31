@@ -32,7 +32,8 @@ async def bolna_webhook(
         execution_id,
         {
             "execution_id": execution_id,
-            "status": status
+            "status": status,
+            "data": payload if status == "completed" else None
         }
     )
 

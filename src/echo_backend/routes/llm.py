@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from echo_backend.schemas.llm_service_datails_schema import ServiceDetailsSchema
 from echo_backend.services.llm_service import get_llm_response
 
 
@@ -8,7 +9,7 @@ router = APIRouter(
 )
 
 @router.get("/response")
-async def llm_response(message:str)-> dict:
+async def llm_response(message: str) -> ServiceDetailsSchema:
     try:
         return await get_llm_response(message)
     except Exception as e:
